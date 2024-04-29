@@ -12,11 +12,13 @@ namespace jobPortal.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<AppUser> userManager;
+        private readonly SignInManager<AppUser> signInManager;
 
-        public AccountController(RoleManager<IdentityRole>roleManager,UserManager<AppUser>userManager)
+        public AccountController(RoleManager<IdentityRole>roleManager,UserManager<AppUser>userManager,SignInManager<AppUser>signInManager)
         {
            this.roleManager = roleManager;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
 
@@ -61,6 +63,30 @@ namespace jobPortal.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model,string? returnUrl)
+        {
+            if(ModelState.IsValid)
+            {
+                var user=await userManager.FindByEmailAsync(model.Email);
+                if (user ==null)
+                {
+                    return RedirectToAction("Login");
+                }
+                var result = await signInManager.PasswordSignInAsync(user.UserName,model.Password,false,false);
+                if (result.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "incorrect login cred");
+                return View(model);
+            }
+            return View(model);
         }
     }
 
