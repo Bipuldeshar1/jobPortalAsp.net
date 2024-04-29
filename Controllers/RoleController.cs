@@ -53,25 +53,25 @@ namespace jobPortal.Controllers
             }
             return View(model);
         }
-        [HttpGet]
-        public async Task<IActionResult> EditRole(string id)
+
+        public  async Task<IActionResult> EditRole(string id)
         {
             var role = await roleManager.FindByIdAsync(id);
             if (role == null)
             {
                 return RedirectToAction("ListRoles", "Role");
             }
-            var model = new RoleViewModel
-            {
-                Id = role.Id,
-                RoleName = role.Name,
-               
+            var model = new EditRoleViewModel { 
+            
+            Id=role.Id,
+            RoleName=role.Name,
             };
+          
 
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> EditRole(RoleViewModel model)
+        public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await roleManager.FindByIdAsync(model.Id);
             if (role == null)

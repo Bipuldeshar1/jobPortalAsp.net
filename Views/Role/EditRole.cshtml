@@ -1,0 +1,29 @@
+﻿@using jobPortal.Models.ViewModel.role
+@model EditRoleViewModel
+
+
+<h1>edit role</h1>
+
+<form asp-action="EditRole" asp-controller="Role" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group mb-3">
+        <label>Id</label>
+        <input asp-for="Id" type="text" class="form-control" readonly>
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-3">
+        <label>Role</label>
+        <input asp-for="RoleName" type="text" class="form-control">
+        <span asp-validation-for="RoleName" class="text-danger"></span>
+    </div>
+
+    <div class="card-footer">
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a asp-action="ListRoles" class="btn btn-primary">cancel</a>
+
+            </div>
+        </div>
+       
+</form>
