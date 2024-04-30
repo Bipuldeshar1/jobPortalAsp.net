@@ -88,6 +88,33 @@ namespace jobPortal.Controllers
             }
             return View(model);
         }
+
+        public  async Task<IActionResult> Logout()
+        {
+           await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> UserDetail()
+        {
+            var userId =  userManager.GetUserId(User);
+
+            var user= await userManager.FindByIdAsync(userId);
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            UserDetailViewModel userDetailViewModel = new UserDetailViewModel() {
+                Id = userId,
+                UserName = user.UserName,
+                Email = user.Email,
+                Address=user.Address,
+                role = roles.FirstOrDefault()
+
+
+            };
+          
+            return View(userDetailViewModel);
+        }
     }
 
 
