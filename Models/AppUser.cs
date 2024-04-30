@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using jobPortal.Models.job;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace jobPortal.Models
@@ -11,6 +12,8 @@ namespace jobPortal.Models
        
         public string Address { get; set; }
         public string type { get; set; }
+
+        public IEnumerable<JobModel> JobModels { get; set; }
 
 
     }

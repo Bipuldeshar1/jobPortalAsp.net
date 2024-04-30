@@ -4,7 +4,7 @@ namespace jobPortal.Controllers
 {
     public class JobController : Controller
     {
-        public IActionResult Index()
+       public IActionResult Add()
         {
             return View();
         }

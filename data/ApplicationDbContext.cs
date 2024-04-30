@@ -13,5 +13,16 @@ namespace jobPortal.data
         }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<JobModel> JobModels { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<JobModel>()
+                 .HasOne(j => j.appUser)
+                 .WithMany(u => u.JobModels)
+                 .HasForeignKey(j => j.AuthorId)
+                 .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }
