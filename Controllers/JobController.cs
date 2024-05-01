@@ -81,5 +81,39 @@ namespace jobPortal.Controllers
 
             return View(jobs);
         }
+        [HttpGet]
+        [Authorize(Roles = "Employeer")]
+        public async Task<IActionResult> Edit(int id)
+        {
+           var job= await context.JobModels.Include(x=>x.appUser).FirstOrDefaultAsync(x=>x.Id==id);
+
+            
+
+            return View(job);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(JobModel model)
+        {
+            var userID = userManager.GetUserId(User);
+                var job =  context.JobModels.Include(x=>x.appUser).FirstOrDefault(x=>x.Id==model.Id);
+            if (job.appUser.Id == userID)
+            {
+                job.Title = model.Title;
+                job.Description = model.Description;
+                job.Resposibility = model.Resposibility;
+                job.Salary = model.Salary;
+                await context.SaveChangesAsync();
+                return RedirectToAction("Read", "Job");
+            }
+            else
+            {
+                return View(model);
+            }
+          
+
+
+
+        }
     }
 }

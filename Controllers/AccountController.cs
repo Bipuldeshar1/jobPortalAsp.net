@@ -80,6 +80,7 @@ namespace jobPortal.Controllers
                 {
                     if (!string.IsNullOrEmpty(returnUrl))
                     {
+                        ModelState.AddModelError("","user not found");
                         return Redirect(returnUrl);
                     }
                     return RedirectToAction("Index", "Home");

@@ -1,5 +1,10 @@
-﻿@using jobPortal.Models.job
+﻿@using Microsoft.AspNetCore.Identity
+@using jobPortal.Models.job
 @model JobModel
-
+@inject UserManager<AppUser> userManager
 <h1>Detail</h1>
 <p>@Model.Title</p>
+
+@if(Model.appUser.Id==userManager.GetUserId(User)){
+    <a asp-controller="Job" asp-action="Edit" asp-route-id="@Model.Id">edit</a>
+}
