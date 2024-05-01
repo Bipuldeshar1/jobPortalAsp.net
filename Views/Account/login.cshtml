@@ -22,7 +22,7 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
    
-            <button asp-controller="Account" asp-action="Login" class="w-100 btn btn-lg btn-primary">Login</button>
+            <button asp-controller="Account" asp-action="Login" class="w-100 btn btn-lg btn-primary" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]">Login</button>
         </form>
     </div>
 </div>

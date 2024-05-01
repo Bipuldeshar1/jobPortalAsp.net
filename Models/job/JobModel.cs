@@ -12,9 +12,7 @@ namespace jobPortal.Models.job
         public string Resposibility { get; set;}
         public DateTime PostedAt { get; set; } = DateTime.Now;        
         public string Salary { get; set;}
-        
-        public string Category { get; set;}
-      
+
         public string AuthorId { get; set;}
         public AppUser appUser { get; set;}
 

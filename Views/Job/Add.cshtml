@@ -1,3 +1,74 @@
-﻿@using jobPortal.Models.job
-@model JobModel
+﻿@using Microsoft.AspNetCore.Identity
+@using jobPortal.Models.job
+@model AddJobModel
+@inject UserManager<AppUser> userManager
+@inject SignInManager<AppUser> signInManager
 
+
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2"> JObS</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row" enctype="multipart/form-data">
+                  
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3">
+                        @* <div asp-validation-summary="ModelOnly"></div> *@
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="@Model.Title" class="form-control border-0 shadow" />
+                            <label asp-for="@Model.Title" class="ms-2"></label>
+                            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="py-2 col-12">
+                            <label asp-for="@Model.Description" class="ms-2 text-muted"></label>
+                            <textarea asp-for="@Model.Description" class="form-control border-0 shadow"></textarea>
+                            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="py-2 col-12">
+                            <label asp-for="@Model.Resposibility" class="ms-2 text-muted"></label>
+                            <textarea asp-for="@Model.Resposibility" class="form-control border-0 shadow"></textarea>
+                            <span asp-validation-for="@Model.Resposibility" class="text-danger"></span>
+                        </div>                  
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="@Model.Salary" class="form-control border-0 shadow" />
+                            <label asp-for="@Model.Salary" class="ms-2"></label>
+                            <span asp-validation-for="@Model.Salary" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="@Model.AuthorId" class="form-control border-0 shadow" value="@userManager.GetUserId(User)" hidden />
+                            <label class="ms-2">Job Posters Name</label>
+                            <input class="form-control border-0 shadow" value="@userManager.GetUserName(User)" />
+                        </div>
+   
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                <button type="submit" class="btn btn-primary form-control">Create</button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="" asp-action="" class="btn btn-outline-primary border  form-control">
+                                    Back to List
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+             
+            </div>
+           
+        </form>
+    </div>
+</div>
+
+ 

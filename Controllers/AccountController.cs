@@ -69,6 +69,7 @@ namespace jobPortal.Controllers
         {
             if(ModelState.IsValid)
             {
+                
                 var user=await userManager.FindByEmailAsync(model.Email);
                 if (user ==null)
                 {
