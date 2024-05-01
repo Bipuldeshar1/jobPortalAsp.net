@@ -6,5 +6,7 @@
 <p>@Model.Title</p>
 
 @if(Model.appUser.Id==userManager.GetUserId(User)){
-    <a asp-controller="Job" asp-action="Edit" asp-route-id="@Model.Id">edit</a>
+    <a asp-controller="Job" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">edit</a>
+    <a asp-controller="Job" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
+
 }

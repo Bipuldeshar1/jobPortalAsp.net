@@ -110,9 +110,19 @@ namespace jobPortal.Controllers
             {
                 return View(model);
             }
-          
+        }
 
-
+ 
+        public async Task<IActionResult> Delete(int id)
+        {
+            var job= await context.JobModels.FindAsync(id);
+            if(job == null)
+            {
+                return RedirectToAction("Read");
+            }
+             context.JobModels.Remove(job);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Read");
 
         }
     }
