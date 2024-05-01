@@ -263,7 +263,7 @@ namespace jobPortal.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("JobModels");
+                    b.ToTable("JobModels", (string)null);
                 });
 
             modelBuilder.Entity("jobPortal.Models.AppUser", b =>

@@ -61,5 +61,25 @@ namespace jobPortal.Controllers
 
             return View(jobs);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+            var job =  context.JobModels.Include(x=>x.appUser).FirstOrDefault(x=>x.Id==id);
+            return View(job);
+        }
+
+        [HttpGet]
+        [Authorize(Roles ="Employeer")]
+        public async Task<IActionResult> GetMyJobsPost()
+        {
+            var user= await userManager.GetUserAsync(User);
+
+            var jobs = context.JobModels.Include(x => x.appUser).Where(x=>x.appUser.Id==user.Id).ToList();
+
+          
+
+            return View(jobs);
+        }
     }
 }
