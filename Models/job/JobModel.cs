@@ -15,6 +15,7 @@ namespace jobPortal.Models.job
 
         public string AuthorId { get; set;}
         public AppUser appUser { get; set;}
+        public IEnumerable<ApplyModel> applyModels { get; set; }
 
     }
 }

@@ -23,6 +23,14 @@ namespace jobPortal.data
                  .WithMany(u => u.JobModels)
                  .HasForeignKey(j => j.AuthorId)
                  .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ApplyModel>()
+                .HasOne(a=>a.JobModel)
+                .WithMany(j=>j.applyModels)
+                .HasForeignKey(a=>a.JobId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
+
+        
     }
 }
