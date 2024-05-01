@@ -4,6 +4,7 @@ using jobPortal.Models.job;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace jobPortal.Controllers
 {
@@ -56,7 +57,9 @@ namespace jobPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> Read()
         {
-            return View();
+            var jobs =  context.JobModels.Include(x=>x.appUser).ToList();
+
+            return View(jobs);
         }
     }
 }
