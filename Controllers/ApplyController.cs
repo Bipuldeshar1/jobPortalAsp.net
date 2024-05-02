@@ -1,5 +1,6 @@
 ﻿using jobPortal.data;
 using jobPortal.Models;
+using jobPortal.Models.job;
 using jobPortal.Models.ViewModel.apply;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -84,20 +85,22 @@ namespace jobPortal.Controllers
                     await model.Cl.CopyToAsync(stream);
                 }
 
-              
-                ApplyModel applyModel = new ApplyModel() { 
-                Name= model.Name,
-                Email= model.Email,
-                Address= model.Address,
+
+                ApplyModel applyModel = new ApplyModel() {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Address = model.Address,
+
                 ApplyDate = DateTime.Now,
                 JobId=model.JobId,
                 Cv=filePathCv,
                 Cl=fileNameCl,
+                NameId=userManager.GetUserId(User),
 
                 };
                 await context.ApplyModels.AddAsync(applyModel);
                 await context.SaveChangesAsync();
-                return RedirectToAction("/","Home");
+                return RedirectToAction("AppliedJob");
             }
             return View(model);
         }
@@ -107,8 +110,29 @@ namespace jobPortal.Controllers
         public async Task<IActionResult> ApplicationReceived()
         {
             var user = await userManager.GetUserAsync(User);
-            var jobs = await context.ApplyModels.Include(x=>x.JobModel).ThenInclude(JobModel=>JobModel.appUser).Where(x=>x.JobModel.appUser.Id==user.Id).ToListAsync();
+       
+            var jobs = await context.ApplyModels.Include(x => x.JobModel).ThenInclude(JobModel => JobModel.appUser).Where(x => x.JobModel.appUser.Id == user.Id).ToListAsync();
             return View(jobs);
         }
+
+        public async Task<IActionResult> AppliedJob()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+               
+                return RedirectToAction("Login", "Account");
+            }
+
+            var jobs = await context.ApplyModels
+                                    .Include(x => x.appUser)
+                                    .Include(x=>x.JobModel)
+                                    .Where(x =>x.NameId  == user.Id)
+                                    .ToListAsync();
+
+            return View(jobs);
+        }
+
     }
 }

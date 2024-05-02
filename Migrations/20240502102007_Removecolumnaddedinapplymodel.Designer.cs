@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using jobPortal.data;
 
@@ -11,9 +12,11 @@ using jobPortal.data;
 namespace jobPortal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240502102007_Removecolumnaddedinapplymodel")]
+    partial class Removecolumnaddedinapplymodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,18 +265,9 @@ namespace jobPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NameId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("appUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("JobId");
-
-                    b.HasIndex("appUserId");
 
                     b.ToTable("ApplyModels");
                 });
@@ -394,13 +388,7 @@ namespace jobPortal.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("jobPortal.Models.AppUser", "appUser")
-                        .WithMany()
-                        .HasForeignKey("appUserId");
-
                     b.Navigation("JobModel");
-
-                    b.Navigation("appUser");
                 });
 
             modelBuilder.Entity("jobPortal.Models.job.JobModel", b =>
