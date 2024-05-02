@@ -10,3 +10,7 @@
     <a asp-controller="Job" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
 
 }
+else
+{
+    <a asp-controller="Apply" asp-action="ApplyJob" asp-route-id="@Model.Id" class="btn btn-primary">Apply</a>
+}

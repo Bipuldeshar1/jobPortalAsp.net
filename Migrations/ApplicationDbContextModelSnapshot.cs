@@ -266,7 +266,7 @@ namespace jobPortal.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("ApplyModel");
+                    b.ToTable("ApplyModels");
                 });
 
             modelBuilder.Entity("jobPortal.Models.job.JobModel", b =>
@@ -382,7 +382,7 @@ namespace jobPortal.Migrations
                     b.HasOne("jobPortal.Models.job.JobModel", "JobModel")
                         .WithMany("applyModels")
                         .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("JobModel");

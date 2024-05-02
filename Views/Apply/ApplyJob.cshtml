@@ -1,0 +1,53 @@
+﻿@using jobPortal.Models.ViewModel.apply
+@model ApplyViewModel
+<link rel="stylesheet" href="~/css/apply.css" />
+
+
+<div class="container">
+    <div class="apply_box">
+        <h1>
+            Job Application
+
+        </h1>
+        <form method="post" enctype="multipart/form-data" asp-controller="Apply" asp-action="ApplyJob">
+            <div class="form_container">
+                <div class="form_control">
+                    <label for="name">  Name </label>
+                    <input asp-for="@Model.Name" placeholder="Enter  Name..." />
+                </div>
+                <div class="form_control">
+                    <label for="email"> Email </label>
+                    <input type="email" asp-for="@Model.Email" placeholder="Enter Email..." />
+                </div>
+                <div class="form_control">
+                    <label for="Address"> Address </label>
+                    <input type="text" asp-for="@Model.Address" placeholder="Enter Address..." />
+                </div>
+                <div class="form_control">
+                    <label for="date">Apply Date </label>
+                    <input type="text" asp-for="@Model.ApplyDate" readonly />
+                </div>
+                <div class="form_control">
+                    <label for="city"> Applying for Post</label>
+                    <input asp-for="@Model.JobId" value="@ViewBag.JObId" hidden />
+                    <input value="@ViewBag.JObName" readonly />
+                </div>
+                <div class="form_control">
+                    <label for="city"> Poster </label>
+                    <input value="@ViewBag.info.appUser.Name" readonly />
+                </div>
+
+                <div class="form_control">
+                    <label for="upload"> Upload Your CV </label>
+                    <input type="file" asp-for="@Model.Cv" />
+                </div>
+                <div class="form_control">
+                    <label for="upload"> Upload Your Cover letter </label>
+                    <input type="file" asp-for="@Model.Cl" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-outline-primary">Apply</button>
+        </form>
+    </div>
+</div>

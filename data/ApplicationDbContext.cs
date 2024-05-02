@@ -14,6 +14,8 @@ namespace jobPortal.data
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<JobModel> JobModels { get; set; }
 
+        public DbSet<ApplyModel> ApplyModels { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -28,7 +30,7 @@ namespace jobPortal.data
                 .HasOne(a=>a.JobModel)
                 .WithMany(j=>j.applyModels)
                 .HasForeignKey(a=>a.JobId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         

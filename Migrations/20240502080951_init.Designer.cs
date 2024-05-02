@@ -12,8 +12,8 @@ using jobPortal.data;
 namespace jobPortal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240430143344_jobModel")]
-    partial class jobModel
+    [Migration("20240502080951_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,6 +231,47 @@ namespace jobPortal.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("jobPortal.Models.ApplyModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ApplyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Cl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("ApplyModels");
+                });
+
             modelBuilder.Entity("jobPortal.Models.job.JobModel", b =>
                 {
                     b.Property<int>("Id")
@@ -238,6 +279,10 @@ namespace jobPortal.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -259,6 +304,8 @@ namespace jobPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("JobModels");
                 });
@@ -331,6 +378,38 @@ namespace jobPortal.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("jobPortal.Models.ApplyModel", b =>
+                {
+                    b.HasOne("jobPortal.Models.job.JobModel", "JobModel")
+                        .WithMany("applyModels")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("JobModel");
+                });
+
+            modelBuilder.Entity("jobPortal.Models.job.JobModel", b =>
+                {
+                    b.HasOne("jobPortal.Models.AppUser", "appUser")
+                        .WithMany("JobModels")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("appUser");
+                });
+
+            modelBuilder.Entity("jobPortal.Models.job.JobModel", b =>
+                {
+                    b.Navigation("applyModels");
+                });
+
+            modelBuilder.Entity("jobPortal.Models.AppUser", b =>
+                {
+                    b.Navigation("JobModels");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,4 @@
-﻿using jobPortal.Migrations;
+﻿
 using jobPortal.Models;
 using jobPortal.Models.ViewModel.Auth;
 using Microsoft.AspNetCore.Identity;

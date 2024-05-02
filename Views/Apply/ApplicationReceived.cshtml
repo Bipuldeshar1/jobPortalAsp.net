@@ -1,0 +1,10 @@
+﻿@model List<ApplyModel>
+
+@foreach(var i in Model)
+{
+    
+<p>@i.Name</p>
+<p>@i.JobModel.Title</p>
+<p>@i.JobModel.appUser.Name</p>
+<p>------------------------------------------------</p>
+}
