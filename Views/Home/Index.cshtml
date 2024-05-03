@@ -2,7 +2,68 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="section-title">Search Jobs</h2>
+                    <form asp-controller="Search" asp-action="SearchJob">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <!-- Adjusted column size to 6 for each search bar -->
+                                <div class="form-group">
+                                    <input asp-controller="Search" asp-action="SearchJob" name="JobTitle" type="text" class="form-control" placeholder="Search for jobs">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <!-- Second column for the second search bar -->
+                                <div class="form-group">
+                                    <input asp-controller ="Search" asp-action="SearchJob" name="CompanyName" type="text" class="form-control" placeholder="Search for company">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <!-- Full width column for the button -->
+                                <button type="submit" class="btn btn-primary btn-block">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="section-title">Latest Jobs</h2>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Software Engineer</h3>
+                    <p class="card-text">Posted By: John Doe | Posted At: 2024-04-25</p>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur lacinia feugiat. Proin eu nunc vel ipsum venenatis congue. Donec ac sapien vel velit blandit efficitur.</p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Data Analyst</h3>
+                    <p class="card-text">Posted By: Jane Doe | Posted At: 2024-04-24</p>
+                    <p class="card-text">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed efficitur nulla nec turpis tristique, nec fermentum odio tincidunt.</p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h2 class="section-title">Job Categories</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#" class="text-decoration-none text-dark">Software Development</a></li>
+                <li class="list-group-item"><a href="#" class="text-decoration-none text-dark">Data Analysis</a></li>
+                <li class="list-group-item"><a href="#" class="text-decoration-none text-dark">Web Design</a></li>
+                <li class="list-group-item"><a href="#" class="text-decoration-none text-dark">Marketing</a></li>
+                <li class="list-group-item"><a href="#" class="text-decoration-none text-dark">Finance</a></li>
+            </ul>
+        </div>
+    </div>
 </div>

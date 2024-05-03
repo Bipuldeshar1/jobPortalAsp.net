@@ -1,0 +1,28 @@
+﻿@using jobPortal.Models.job
+@model object
+
+@if (Model is List<JobModel> jobs)
+{
+    @foreach (var job in jobs)
+    {
+        <div>
+            <h3>@job.Title</h3>
+      
+       
+        </div>
+    }
+}
+else if (Model is List<AppUser> companies)
+{
+    @foreach (var company in companies)
+    {
+        <div>
+            <h3>@company.Name</h3>
+       
+        </div>
+    }
+}
+else
+{
+    <p>No data to display</p>
+}
