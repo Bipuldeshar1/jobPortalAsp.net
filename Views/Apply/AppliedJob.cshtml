@@ -1,8 +1,19 @@
 ﻿@model List<ApplyModel>
 
-@foreach(var i in Model)
-{
-    <p>@i.JobModel.Title</p>
-    <p>@i.Name</p>
-    <p>@i.ApplyDate</p>
-}
+<div class="container">
+    <h1 class="text-center mb-4">Jobs Applied By Users</h1>
+    <div class="row">
+        @foreach (var application in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Job Title: @application.JobModel.Title</h5>
+                        <p class="card-text">Posted By: @application.JobModel.appUser.Name</p>
+                        <p class="card-text">Applied On: @application.ApplyDate.ToString("MM/dd/yyyy")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

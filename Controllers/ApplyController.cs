@@ -127,7 +127,7 @@ namespace jobPortal.Controllers
 
             var jobs = await context.ApplyModels
                                     .Include(x => x.appUser)
-                                    .Include(x=>x.JobModel)
+                                    .Include(x=>x.JobModel).ThenInclude(JobModel=>JobModel.appUser)
                                     .Where(x =>x.NameId  == user.Id)
                                     .ToListAsync();
 

@@ -2,15 +2,49 @@
 @using jobPortal.Models.job
 @model JobModel
 @inject UserManager<AppUser> userManager
-<h1>Detail</h1>
-<p>@Model.Title</p>
-
-@if(Model.appUser.Id==userManager.GetUserId(User)){
-    <a asp-controller="Job" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">edit</a>
-    <a asp-controller="Job" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
-
-}
-else
-{
-    <a asp-controller="Apply" asp-action="ApplyJob" asp-route-id="@Model.Id" class="btn btn-primary">Apply</a>
-}
+<div class="container">
+    <div class="job-detail border rounded p-4">
+        <div class="job-header">
+            <h1 class="job-title">@Model.Title</h1>
+            <p class="job-posted-by">Posted By: @Model.appUser.Name</p>
+        </div>
+        <div class="job-info">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="job-description border-bottom pb-3 mb-3">
+                        <h4>Description</h4>
+                        <p>@Model.Description</p>
+                    </div>
+                    <div class="job-responsibility border-bottom pb-3 mb-3">
+                        <h4>Responsibilities</h4>
+                        <p>@Model.Resposibility</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="job-details border-bottom pb-3 mb-3">
+                        <h4>Company Details</h4>
+                        <p>The morning air was crisp and sharp as Sean walked down the road. The pavement was slippery and cold beneath his feet, like a slimy, wet fish. For more information about words that help describe people, places and things, look at the topic on describing words (Adjectives).</p>
+                    </div>
+                    <div class="job-details border-bottom pb-3 mb-3">
+                        <h4>Job Details</h4>
+                        <ul class="list-unstyled">
+                            <li><strong>Salary:</strong> @Model.Salary</li>
+                            <li><strong>Posted At:</strong> @Model.PostedAt.ToShortDateString()</li>
+                        </ul>
+                    </div>
+                    <div class="job-actions">
+                        @if (Model.appUser.Id == userManager.GetUserId(User))
+                        {
+                            <a asp-controller="Job" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                            <a asp-controller="Job" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Apply" asp-action="ApplyJob" asp-route-id="@Model.Id" class="btn btn-primary">Apply Now</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

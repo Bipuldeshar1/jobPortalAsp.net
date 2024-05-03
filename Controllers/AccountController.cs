@@ -73,7 +73,8 @@ namespace jobPortal.Controllers
                 var user=await userManager.FindByEmailAsync(model.Email);
                 if (user ==null)
                 {
-                    return RedirectToAction("Login");
+                    ModelState.AddModelError("" , "user not found");
+                    return View(model);
                 }
                 var result = await signInManager.PasswordSignInAsync(user.UserName,model.Password,false,false);
                 if (result.Succeeded)

@@ -44,13 +44,25 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="read">Jobs</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Apply" asp-action="ApplicationReceived">Job Application Received</a>
+                            </li>
+                        }
+                        else if(roles.Contains("User"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="read">Jobs</a>
+                            </li>
+                              <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Apply" asp-action="AppliedJob">Job Applied</a>
+                            </li>
+
                         }
                         else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="read">Jobs</a>
                             </li>
-                            
                         }
 
                     </ul>
