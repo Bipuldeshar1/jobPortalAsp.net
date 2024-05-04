@@ -52,6 +52,18 @@ namespace jobPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryModel model)
         {
+            if (ModelState.IsValid)
+            {
+                var category =  context.CategoriesModel.FirstOrDefault(x => x.Id == model.Id);
+                if (category == null)
+                {
+                    ModelState.AddModelError("", "category not found");
+                    return View(model);
+                }
+                category.CategoryName=model.CategoryName;
+                await context.SaveChangesAsync();
+                return RedirectToAction("Read");
+            }
 
             return View(model);
         }
