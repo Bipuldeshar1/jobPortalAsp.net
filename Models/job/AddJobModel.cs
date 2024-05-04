@@ -9,6 +9,7 @@
         public string Resposibility { get; set; }
         public string Salary { get; set; }
 
+        public string Category { get; set; }    
         public string AuthorId { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using jobPortal.Models.category;
 using jobPortal.Models.job;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace jobPortal.data
 {
@@ -28,6 +29,12 @@ namespace jobPortal.data
                  .WithMany(u => u.JobModels)
                  .HasForeignKey(j => j.AuthorId)
                  .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<JobModel>()
+          .HasOne(j => j.Category)
+          .WithMany(c => c.jobModels)
+          .HasForeignKey(j => j.CategoryId);
+       
 
             builder.Entity<ApplyModel>()
                 .HasOne(a=>a.JobModel)

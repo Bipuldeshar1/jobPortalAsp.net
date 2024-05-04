@@ -12,8 +12,8 @@ using jobPortal.data;
 namespace jobPortal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240504035851_catModel")]
-    partial class catModel
+    [Migration("20240504102826_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -310,6 +310,9 @@ namespace jobPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -332,6 +335,8 @@ namespace jobPortal.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("JobModels");
                 });
@@ -431,7 +436,20 @@ namespace jobPortal.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("jobPortal.Models.category.CategoryModel", "Category")
+                        .WithMany("jobModels")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
                     b.Navigation("appUser");
+                });
+
+            modelBuilder.Entity("jobPortal.Models.category.CategoryModel", b =>
+                {
+                    b.Navigation("jobModels");
                 });
 
             modelBuilder.Entity("jobPortal.Models.job.JobModel", b =>

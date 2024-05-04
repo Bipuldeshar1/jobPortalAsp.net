@@ -25,6 +25,7 @@ namespace jobPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryModel model)
         {
+            ModelState.Remove("jobModels");
             if (ModelState.IsValid)
             {
                 var category= await context.CategoriesModel.AddAsync(model);

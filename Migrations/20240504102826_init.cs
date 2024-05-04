@@ -55,6 +55,19 @@ namespace jobPortal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CategoriesModel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoriesModel", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -171,6 +184,7 @@ namespace jobPortal.Migrations
                     Resposibility = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Salary = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     AuthorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -182,6 +196,12 @@ namespace jobPortal.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JobModels_CategoriesModel_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "CategoriesModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,6 +211,8 @@ namespace jobPortal.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    appUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApplyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -202,12 +224,22 @@ namespace jobPortal.Migrations
                 {
                     table.PrimaryKey("PK_ApplyModels", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_ApplyModels_AspNetUsers_appUserId",
+                        column: x => x.appUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_ApplyModels_JobModels_JobId",
                         column: x => x.JobId,
                         principalTable: "JobModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplyModels_appUserId",
+                table: "ApplyModels",
+                column: "appUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplyModels_JobId",
@@ -257,6 +289,11 @@ namespace jobPortal.Migrations
                 name: "IX_JobModels_AuthorId",
                 table: "JobModels",
                 column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobModels_CategoryId",
+                table: "JobModels",
+                column: "CategoryId");
         }
 
         /// <inheritdoc />
@@ -288,6 +325,9 @@ namespace jobPortal.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CategoriesModel");
         }
     }
 }
