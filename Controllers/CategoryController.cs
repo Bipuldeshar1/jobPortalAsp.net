@@ -33,13 +33,20 @@ namespace jobPortal.Controllers
 
             }
 
-            return View();
+            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Read()
         {
             var category = context.CategoriesModel.ToList();
+            return View(category);
+        }
+
+        [HttpGet]
+        public  IActionResult Edit(CategoryModel model)
+        {
+            var category =  context.CategoriesModel.FirstOrDefault(x=>x.Id==model.Id);
             return View(category);
         }
 
