@@ -67,8 +67,18 @@ namespace jobPortal.Controllers
 
             return View(model);
         }
-
-
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var category = context.CategoriesModel.FirstOrDefault(x => x.Id==id);
+            if (category == null) {
+                ModelState.AddModelError("", "category not found");
+                return RedirectToAction("Create");
+            }
+            context.CategoriesModel.Remove(category);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Read");
+        }
 
     }
 }
