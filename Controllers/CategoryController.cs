@@ -44,10 +44,16 @@ namespace jobPortal.Controllers
         }
 
         [HttpGet]
-        public  IActionResult Edit(CategoryModel model)
+        public  IActionResult Edit(int id)
         {
-            var category =  context.CategoriesModel.FirstOrDefault(x=>x.Id==model.Id);
+            var category =  context.CategoriesModel.FirstOrDefault(x=>x.Id==id);
             return View(category);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(CategoryModel model)
+        {
+
+            return View(model);
         }
 
 

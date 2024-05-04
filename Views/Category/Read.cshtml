@@ -4,4 +4,5 @@
 @foreach(var i in Model)
 {
     <p>@i.CategoryName</p>
+    <a asp-controller="Category" asp-action="Edit" asp-route-id="@i.Id">edit</a>
 }
