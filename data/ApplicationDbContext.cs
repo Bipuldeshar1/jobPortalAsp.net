@@ -1,4 +1,5 @@
 ﻿using jobPortal.Models;
+using jobPortal.Models.category;
 using jobPortal.Models.job;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,8 @@ namespace jobPortal.data
         public DbSet<JobModel> JobModels { get; set; }
 
         public DbSet<ApplyModel> ApplyModels { get; set; }
+
+        public DbSet<CategoryModel> CategoriesModel {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
