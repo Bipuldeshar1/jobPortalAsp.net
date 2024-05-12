@@ -54,8 +54,9 @@ namespace jobPortal.Controllers
                     UserName = model.Name,
                     Email = model.Email,
                     Name = model.Name,
-                    Address = model.Address
-
+                    Address = model.Address,
+                    Img=ImageUrl
+                    
 
                 };
                 var result = await userManager.CreateAsync(user,model.Password);
