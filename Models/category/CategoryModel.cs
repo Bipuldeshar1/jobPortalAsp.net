@@ -8,7 +8,9 @@ namespace jobPortal.Models.category
     {
         [Key]
         public int Id { get; set; }
-        public string CategoryName { get; set; }
+
+
+            public string CategoryName { get; set; }
 
         public IEnumerable<JobModel> jobModels { get; set; }
     }
