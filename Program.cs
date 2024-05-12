@@ -1,5 +1,6 @@
 using jobPortal.data;
 using jobPortal.Models;
+using jobPortal.services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,8 @@ builder.Services.Configure<IdentityOptions>(options => {
     options.Password.RequireUppercase = false;
   
 });
+
+builder.Services.AddScoped<IImageService,ImageService>();
 
 var app = builder.Build();
 

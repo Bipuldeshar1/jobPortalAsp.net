@@ -2,11 +2,12 @@
 using jobPortal.Models.category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace jobPortal.Controllers
 {
     
-    [Authorize(Roles ="Admin")]
+ 
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext context;
@@ -16,6 +17,7 @@ namespace jobPortal.Controllers
             this.context = context;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
 
@@ -38,6 +40,7 @@ namespace jobPortal.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Read()
         {
             var category = context.CategoriesModel.ToList();
@@ -45,6 +48,7 @@ namespace jobPortal.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public  IActionResult Edit(int id)
         {
             var category =  context.CategoriesModel.FirstOrDefault(x=>x.Id==id);
@@ -69,6 +73,7 @@ namespace jobPortal.Controllers
             return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var category = context.CategoriesModel.FirstOrDefault(x => x.Id==id);
@@ -79,6 +84,18 @@ namespace jobPortal.Controllers
             context.CategoriesModel.Remove(category);
             await context.SaveChangesAsync();
             return RedirectToAction("Read");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CategoryJobDetail(int id)
+        {
+            var category= context.CategoriesModel.FirstOrDefault(x=>x.Id==id);
+            if (category == null)
+            {
+                return View();
+            }
+            var jobs=  context.JobModels.Include(x=>x.appUser).Where(x=>x.Category.CategoryName==category.CategoryName).ToList();
+            return View(jobs);
         }
 
     }

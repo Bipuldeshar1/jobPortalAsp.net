@@ -6,7 +6,7 @@ namespace jobPortal.Models
 {
     public class AppUser:IdentityUser
     {
-      
+        public string Img { get; set; }
         public string Name { get; set; }
        
         public string Address { get; set; }

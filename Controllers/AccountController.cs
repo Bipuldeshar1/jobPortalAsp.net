@@ -1,10 +1,12 @@
 ﻿
 using jobPortal.Models;
 using jobPortal.Models.ViewModel.Auth;
+using jobPortal.services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace jobPortal.Controllers
 {
@@ -13,12 +15,15 @@ namespace jobPortal.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
+        private readonly IImageService imageService;
 
-        public AccountController(RoleManager<IdentityRole>roleManager,UserManager<AppUser>userManager,SignInManager<AppUser>signInManager)
+        public AccountController(RoleManager<IdentityRole>roleManager,UserManager<AppUser>userManager,
+            SignInManager<AppUser>signInManager,IImageService imageService)
         {
            this.roleManager = roleManager;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.imageService = imageService;
         }
 
 
@@ -34,15 +39,25 @@ namespace jobPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(registerViewModel model)
         {
-            var user = new AppUser
-            {
-                UserName=model.Name,
-                Email=model.Email,
-                Name=model.Name,
-                Address=model.Address
-            };
+
+
+           
             if (ModelState.IsValid)
             {
+                string ImageUrl = "";
+             if(model.image!=null && model.image.Length > 0)
+                {
+                    ImageUrl= await imageService.uploadImageAsync(model.image);
+                }
+                var user = new AppUser
+                {
+                    UserName = model.Name,
+                    Email = model.Email,
+                    Name = model.Name,
+                    Address = model.Address
+
+
+                };
                 var result = await userManager.CreateAsync(user,model.Password);
                 if(result.Succeeded)
                 {
