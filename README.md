@@ -1,10 +1,11 @@
-JOB PORTAL WEBSITE
+#JOB PORTAL WEBSITE
 
-Techonology Used:
+##Techonology Used:
 -ASP.NET CORE MVC
+
 -Microsoft SQL Server Management Studio 
 
-Features Included:
+###Features Included:
 - job posting.
 - application management for Employeer.
 - browsing job by category and company.
